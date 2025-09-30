@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Contact Redes Jewelry — Book an appointment, visit our Bengaluru atelier, or send us a message. Responsive Tailwind prototype with animations and accessibility." />
+  <title>Contact — Redes Jewelry</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --brand:#0f2b3d; --accent:#c88a43; }
+    .max-w-6x1{ max-width:1200px; }
+    body{ -webkit-font-smoothing:antialiased; }
+
+    /* Page background animation */
+    .bg-animated{ background: linear-gradient(120deg, rgba(200,138,67,0.03), rgba(15,43,61,0.02)); }
+    .floating-shape{ position:absolute; border-radius:9999px; filter: blur(40px); opacity:0.45; transform: translateZ(0); }
+
+    /* Contact cards */
+    .contact-card{ transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s; }
+    .contact-card:hover{ transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15,43,61,0.08); }
+
+    /* Fancy form styles */
+    .form-focus:focus{ box-shadow: 0 8px 24px rgba(200,138,67,0.08); border-color: var(--accent); }
+
+    /* Map wrapper */
+    .map-frame{ min-height:320px; border-radius:12px; overflow:hidden; }
+
+    /* Accessibility */
+    :focus{ outline:3px solid rgba(200,138,67,0.14); outline-offset:3px; }
+
+    /* Animations */
+    @keyframes slideFadeIn{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform:none; } }
+    .slide-fade{ animation: slideFadeIn .6s ease both; }
+
+    @keyframes pulseSlow{ 0%{ transform: scale(1);}50%{ transform: scale(1.03);}100%{ transform: scale(1);} }
+    .pulse-slow{ animation: pulseSlow 4s ease-in-out infinite; }
+
+    /* Decorative underline */
+    .heading-underline{ position:relative; display:inline-block; }
+    .heading-underline:after{ content:''; position:absolute; left:0; bottom:-8px; height:3px; width:0; background:var(--accent); transition:width .35s; }
+    .heading-underline:hover:after{ width:100%; }
+
+    /* Large verbose comment block to intentionally increase file length per request */
+    /* ------------------------------------------------------------------ */
+    /* The following CSS section contains many helper classes, repeated utilities, and
+       additional explanatory comments to make the contact page prototype robust and
+       easy to adapt. In production you'd consolidate utilities into Tailwind config
+       and extract repeating rules. For this prototype we keep them inline for clarity. */
+
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:9999px; font-weight:700; }
+    .badge .dot{ width:8px; height:8px; border-radius:9999px; background:var(--accent); }
+
+    .muted{ color:#64748b; }
+    .lead{ font-size:1.03rem; color:#374151; }
+
+    .grid-3{ display:grid; grid-template-columns: 1fr; gap:1rem; }
+    @media(min-width:768px){ .grid-3{ grid-template-columns: repeat(3,1fr); } }
+
+    .large-cta{ padding:14px 20px; border-radius:10px; font-weight:700; }
+
+    /* Repeated helper utilities */
+    .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .shadow-soft{ box-shadow: 0 10px 30px rgba(15,43,61,0.06); }
+    .rounded-xl-very{ border-radius:18px; }
+
+    /* Contact form layout tweaks */
+    .form-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
+    @media(min-width:768px){ .form-grid{ grid-template-columns: 1fr 320px; } }
+
+    /* extra spacing utilities repeated for length */
+    .mt-12{ margin-top:3rem; }
+    .mt-8{ margin-top:2rem; }
+    .mb-8{ margin-bottom:2rem; }
+    .p-6{ padding:1.5rem; }
+
+    /* End verbose css */
+  </style>
+</head>
+<body class="bg-white text-slate-700 bg-animated">
+  <!-- floating decorative shapes -->
+  <div class="floating-shape" style="width:220px; height:220px; left:-60px; top:40px; background: radial-gradient(circle at 30% 30%, rgba(200,138,67,0.12), transparent);"></div>
+  <div class="floating-shape" style="width:320px; height:320px; right:-80px; bottom:60px; background: radial-gradient(circle at 70% 70%, rgba(15,43,61,0.06), transparent);"></div>
+
+  <!-- HEADER / NAV -->
+  <header class="border-b sticky top-0 z-50 bg-white">
+    <div class="max-w-6x1 mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3" aria-label="Redes Jewelry Home">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2 L20 8 L12 22 L4 8 Z" fill="#0f2b3d"/></svg>
+          <span class="font-serif text-2xl brand-color">Redes</span>
+        </a>
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a class="hover:underline" href="index.html">Home</a>
+          <a class="hover:underline" href="collectionspage.html">Collections</a>
+          <a class="hover:underline" href="lookbook.html">Look Book</a>
+          <a class="hover:underline" href="about.html">About</a>
+          <a class="hover:underline" href="blog.html">Blog</a>
+          <a class="hover:underline" href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button aria-label="Search" class="p-2 rounded-md hover:bg-gray-100" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a href="contact.html" class="hidden sm:inline-block text-sm px-4 py-2 border rounded-md">Book Appointment</a>
+        <button id="hamburger" class="md:hidden p-2" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile slideout -->
+    <div id="mobileMenu" class="fixed inset-y-0 left-0 w-72 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-40" aria-hidden="true">
+      <div class="p-6 border-b flex items-center justify-between">
+        <div class="flex items-center gap-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2 L20 8 L12 22 L4 8 Z" fill="#0f2b3d"/></svg><span class="font-serif text-xl">Redes</span></div>
+        <button id="closeMenu" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="p-6 space-y-4">
+        <a class="block" href="index.html">Home</a>
+        <a class="block" href="about.html">Aout</a>
+        <a class="block" href="collectionspage.html">Collections</a>
+        <a class="block" href="lookbook.html">Look Book</a>
+        <a class="block" href="blog.html">Blog</a>
+        <a class="block" href="contact.html">Contact</a>
+      </nav>
+      <div class="p-6 border-t">
+        <div class="flex items-center gap-3">
+          <a aria-label="facebook" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a aria-label="instagram" href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a aria-label="pinterest" href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO / CONTACT INTRO -->
+  <main>
+    <section class="pt-12 pb-8">
+      <div class="max-w-6x1 mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+        <div class="slide-fade">
+          <h1 class="font-serif text-4xl text-[var(--brand)]">Get in touch</h1>
+          <p class="text-slate-600 mt-4">Visit our private atelier in Banguluru by appointment, request bespoke consultations, or ask about repairs and cleaning. Our team replies within 1–3 business days.</p>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 bg-white border rounded-lg contact-card">
+              <div class="font-medium">Studio (By appointment)</div>
+              <div class="text-sm text-slate-500 mt-2">Banguluru — private viewings only</div>
+              <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+              <div class="text-sm"><strong>Email:</strong> <a href="mailto:info@redescreation.in">info@redescreation.in</a></div>
+            </div>
+
+            <div class="p-4 bg-white border rounded-lg contact-card">
+              <div class="font-medium">General Inquiries</div>
+              <div class="text-sm text-slate-500 mt-2">Working hours: Tue–Sat, 10:00–18:00</div>
+              <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+              <div class="text-sm"><strong>Domain:</strong> <a href="https://www.redescreation.in">www.redescreation.in</a></div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex gap-3">
+            <a href="#contactForm" class="large-cta bg-[var(--brand)] text-white rounded">Request an Appointment</a>
+            <a href="#map" class="large-cta border rounded">Find us on map</a>
+          </div>
+        </div>
+
+        <div class="slide-fade">
+          <div class="map-frame rounded-xl-very overflow-hidden shadow-soft">
+            <!-- Embed Google Map centered on Bengaluru (generic) -->
+            <iframe title="Redes studio" src="https://www.google.com/maps?q=Bengaluru&output=embed" class="w-full h-full min-h-[320px] border-0" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT FORM + FAQ + TEAM -->
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <!-- FORM -->
+        <div class="lg:col-span-2 bg-white p-6 rounded-xl-very shadow-soft">
+          <h2 class="font-serif text-2xl text-[var(--brand)]">Contact Us</h2>
+          <p class="text-sm text-slate-500 mt-2">Fill out the form and our team will get back to you about appointments, bespoke enquiries, or repairs.</p>
+
+          <form id="contactForm" class="mt-6 form-grid" aria-label="Contact form">
+            <div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="name" class="text-sm">Name</label>
+                  <input id="name" name="name" required class="w-full border p-3 rounded form-focus" />
+                </div>
+                <div>
+                  <label for="phone" class="text-sm">Phone</label>
+                  <input id="phone" name="phone" required class="w-full border p-3 rounded form-focus" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                <div>
+                  <label for="email" class="text-sm">Email</label>
+                  <input id="email" type="email" name="email" required class="w-full border p-3 rounded form-focus" />
+                </div>
+                <div>
+                  <label for="type" class="text-sm">Enquiry Type</label>
+                  <select id="type" name="type" class="w-full border p-3 rounded form-focus">
+                    <option value="appointment">Appointment</option>
+                    <option value="bespoke">Bespoke Design</option>
+                    <option value="repair">Repair / Servicing</option>
+                    <option value="press">Press</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <label for="message" class="text-sm">Message</label>
+                <textarea id="message" name="message" rows="6" class="w-full border p-3 rounded form-focus" placeholder="Tell us about your enquiry — include dates if you're requesting an appointment."></textarea>
+              </div>
+
+              <div class="mt-4 flex items-center gap-3">
+                <button type="submit" class="px-6 py-3 bg-[var(--accent)] text-[var(--brand)] rounded font-semibold">Send Message</button>
+                <button type="button" id="clearBtn" class="px-4 py-2 border rounded">Clear</button>
+              </div>
+
+              <div id="formStatus" class="mt-4 text-sm text-slate-500" role="status" aria-live="polite"></div>
+            </div>
+
+            <!-- RIGHT COLUMN: appointment info + hours + small gallery -->
+            <aside class="p-4">
+              <div class="bg-white p-4 rounded-lg shadow-soft">
+                <div class="font-semibold">Appointment Info</div>
+                <div class="text-sm text-slate-500 mt-2">Appointments are available Tue–Sat, 10:00–18:00. Private evening appointments may be available on request.</div>
+                <div class="mt-3">
+                  <div class="font-medium">Cancellation Policy</div>
+                  <div class="text-sm text-slate-500 mt-1">Please notify us 48 hours in advance for cancellations to avoid a small rescheduling fee for bespoke consultations.</div>
+                </div>
+              </div>
+
+              <div class="mt-6 bg-white p-4 rounded-lg shadow-soft">
+                <div class="font-medium">Studio Gallery</div>
+                <div class="mt-3 grid grid-cols-2 gap-2">
+                  <img src="https://images.unsplash.com/photo-1549237518-3b4d3f8b7252?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="studio 1" class="w-full h-20 object-cover rounded" />
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="studio 2" class="w-full h-20 object-cover rounded" />
+                  <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="studio 3" class="w-full h-20 object-cover rounded" />
+                  <img src="https://images.unsplash.com/photo-1561839567-4e9c2e54f4a9?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="studio 4" class="w-full h-20 object-cover rounded" />
+                </div>
+              </div>
+
+              <div class="mt-6 text-sm text-slate-500">
+                <div><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+                <div><strong>Email:</strong> <a href="mailto:info@redescreation.in">info@redescreation.in</a></div>
+                <div><strong>Website:</strong> <a href="https://www.redescreation.in">www.redescreation.in</a></div>
+              </div>
+            </aside>
+          </form>
+        </div>
+
+        <!-- FAQ & TEAM COLUMN -->
+        <div class="bg-white p-6 rounded-xl-very shadow-soft">
+          <h3 class="font-semibold">Frequently Asked</h3>
+          <div class="mt-4 space-y-3">
+            <details class="p-3 border rounded"><summary class="font-medium">How do I book a bespoke appointment?</summary><div class="mt-2 text-sm text-slate-500">Use the form above, select 'Bespoke Design' and provide preferred dates. We'll reply with available slots.</div></details>
+            <details class="p-3 border rounded"><summary class="font-medium">Do you offer repairs?</summary><div class="mt-2 text-sm text-slate-500">Yes — we provide repair and servicing. Please include photos in your message for an initial assessment.</div></details>
+            <details class="p-3 border rounded"><summary class="font-medium">Can I bring my own stones?</summary><div class="mt-2 text-sm text-slate-500">We can set client-supplied stones. We'll evaluate suitability and provide a secure handling process.</div></details>
+            <details class="p-3 border rounded"><summary class="font-medium">Do you ship internationally?</summary><div class="mt-2 text-sm text-slate-500">Yes, we ship insured parcels worldwide. Customs and taxes are handled at checkout for international orders.</div></details>
+            <details class="p-3 border rounded"><summary class="font-medium">Do you provide valuations?</summary><div class="mt-2 text-sm text-slate-500">We provide valuations for insured pieces and upon request for bespoke projects.</div></details>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-semibold">Meet Our Team</h4>
+            <div class="mt-3 space-y-3">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Sneha" class="w-12 h-12 rounded-full object-cover" />
+                <div>
+                  <div class="font-medium">Sneha R.</div>
+                  <div class="text-sm muted">Founder & Designer</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1545996124-1a9a1a6e0a27?q=80&w=200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Arjun" class="w-12 h-12 rounded-full object-cover" />
+                <div>
+                  <div class="font-medium">Arjun</div>
+                  <div class="text-sm muted">Master Goldsmith</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Leena" class="w-12 h-12 rounded-full object-cover" />
+                <div>
+                  <div class="font-medium">Leena</div>
+                  <div class="text-sm muted">Finishing Specialist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h4 class="font-semibold">Visit Info</h4>
+            <div class="mt-3 text-sm text-slate-500">
+              <div><strong>Address:</strong> Banguluru (By appointment)</div>
+              <div><strong>Hours:</strong> Tue–Sat, 10:00–18:00</div>
+              <div><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MULTIPLE LOCATIONS (for demonstration, repeated blocks) -->
+    <section class="py-12">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="font-serif text-2xl text-[var(--brand)] heading-underline">Our Locations</h2>
+        <p class="text-sm text-slate-500 mt-2">We primarily operate from Banguluru with private viewings. Below are our associated addresses and partners for collection and shipping (if applicable).</p>
+
+        <div class="mt-6 grid md:grid-cols-3 gap-6">
+          <!-- Location card 1 -->
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Banguluru Atelier</div>
+            <div class="text-sm text-slate-500 mt-2">Private appointments only — studio address provided after booking.</div>
+            <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+            <div class="mt-3"><a href="#map">View on map</a></div>
+          </div>
+
+          <!-- Location card 2 -->
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Partner: Craft House</div>
+            <div class="text-sm text-slate-500 mt-2">Selected collection points and collaborations.</div>
+            <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919876543210">+91 98765 43210</a></div>
+            <div class="mt-3"><a href="#">Contact partner</a></div>
+          </div>
+
+          <!-- Location card 3 -->
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Shipping Hub</div>
+            <div class="text-sm text-slate-500 mt-2">Fulfillment and insured shipping center for domestic and international orders.</div>
+            <div class="mt-3 text-sm"><strong>Email:</strong> <a href="mailto:logistics@redescreation.in">logistics@redescreation.in</a></div>
+            <div class="mt-3"><a href="#">Shipping policy</a></div>
+          </div>
+        </div>
+
+        <!-- Add more repeated location blocks to increase file length -->
+        <div class="mt-6 grid md:grid-cols-3 gap-6">
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Showroom Partner A</div>
+            <div class="text-sm text-slate-500 mt-2">Limited pieces on display at partner showroom.</div>
+            <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919112223334">+91 91122 23334</a></div>
+            <div class="mt-3"><a href="#">Visit partner</a></div>
+          </div>
+
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Showroom Partner B</div>
+            <div class="text-sm text-slate-500 mt-2">Curated collections available seasonally.</div>
+            <div class="mt-3 text-sm"><strong>Phone:</strong> <a href="tel:+919998887776">+91 99988 87776</a></div>
+            <div class="mt-3"><a href="#">Visit partner</a></div>
+          </div>
+
+          <div class="p-6 bg-white border rounded-lg contact-card">
+            <div class="font-semibold">Pop-up Locations</div>
+            <div class="text-sm text-slate-500 mt-2">Follow our social channels for pop-up announcements and events.</div>
+            <div class="mt-3 text-sm"><a href="#">Instagram</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS & SOCIAL PROOF (repeated entries to enlarge file) -->
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="font-serif text-2xl text-[var(--brand)]">What clients say</h2>
+        <div class="mt-6 grid md:grid-cols-3 gap-6">
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"The Redes team was wonderful — they listened, sketched, and delivered a piece that now feels like mine. Highly recommended."<cite class="block mt-3 font-medium">— A. Kund</cite></blockquote>
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"Professional and thoughtful service. My ring was resized perfectly and looks brand new."<cite class="block mt-3 font-medium">— S. Rao</cite></blockquote>
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"Bespoke process was transparent and engaging. The final piece exceeded expectations."<cite class="block mt-3 font-medium">— M. Iyer</cite></blockquote>
+        </div>
+
+        <!-- repeated testimonials to increase page size -->
+        <div class="mt-6 grid md:grid-cols-3 gap-6">
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"Amazing craft and attention to detail."<cite class="block mt-3 font-medium">— R. Gupta</cite></blockquote>
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"Lovely atelier and warm service."<cite class="block mt-3 font-medium">— P. Singh</cite></blockquote>
+          <blockquote class="p-6 bg-white border rounded-lg shadow-soft">"Fast repairs and great advice on care."<cite class="block mt-3 font-medium">— L. Fernandes</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESS & MEDIA KIT DOWNLOAD CTA -->
+    <section class="py-12">
+      <div class="max-w-6x1 mx-auto px-6 grid md:grid-cols-2 gap-6 items-center bg-white p-6 rounded-xl-very shadow-soft">
+        <div>
+          <h3 class="font-serif text-2xl text-[var(--brand)]">Press & Media Kit</h3>
+          <p class="text-sm text-slate-500 mt-2">High-resolution brand assets and press notes available for journalists and partners.</p>
+        </div>
+        <div class="flex items-center gap-3 justify-end">
+          <a href="#" class="px-4 py-3 bg-[var(--accent)] text-[var(--brand)] rounded font-semibold">Download Kit</a>
+          <a href="#" class="px-4 py-3 border rounded">Request Interview</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGAL & PRIVACY SECTION (repeated content) -->
+    <section class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h4 class="font-semibold">Privacy & Data</h4>
+        <p class="text-sm text-slate-500 mt-2">We respect your privacy. Messages sent through this form are used solely to respond to your inquiry and are retained per our privacy policy. We do not share your personal information with external advertisers.</p>
+
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded border">
+            <h5 class="font-medium">Data Retention</h5>
+            <p class="text-sm text-slate-500 mt-2">Contact messages are stored for up to 3 years for customer service and warranty purposes.</p>
+          </div>
+          <div class="bg-white p-4 rounded border">
+            <h5 class="font-medium">Cookies</h5>
+            <p class="text-sm text-slate-500 mt-2">We use essential cookies to operate the site. Analytics cookies are optional and help us improve user experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+  <footer class="border-t mt-12">
+    <div class="max-w-6x1 mx-auto px-6 py-10 grid md:grid-cols-4 gap-6">
+      <div>
+        <h4 class="font-semibold">Redes</h4>
+        <p class="text-sm text-slate-500 mt-2">Bengaluru atelier crafting heirloom jewelry.</p>
+      </div>
+      <div>
+        <h5 class="font-medium">Explore</h5>
+        <ul class="mt-2 text-sm text-slate-600 space-y-2">
+          <li><a href="collectionspage.html">Collections</a></li>
+          <li><a href="lookbook.html">Look Book</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium">Resources</h5>
+        <ul class="mt-2 text-sm text-slate-600 space-y-2">
+          <li><a href="#">Care Guides</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium">Connect</h5>
+        <div class="flex gap-3 mt-2">
+          <a href="#" aria-label="instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="linkedin"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center py-6 text-sm text-slate-500">© 2025 Redes Jewelry. All rights reserved.</div>
+  </footer>
+  </main>
+
+  <!-- SCRIPTS: form handling, map interactions, animations -->
+  <script>
+    // Basic helpers
+    const $ = (s, ctx=document) => ctx.querySelector(s);
+    const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+    // Mobile menu toggles
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    hamburger.addEventListener('click', ()=>{ mobileMenu.style.transform='translateX(0)'; mobileMenu.setAttribute('aria-hidden','false') });
+    closeMenu.addEventListener('click', ()=>{ mobileMenu.style.transform='translateX(-100%)'; mobileMenu.setAttribute('aria-hidden','true') });
+
+    // Contact form validation & submit (prototype)
+    const contactForm = $('#contactForm');
+    const formStatus = $('#formStatus');
+    const clearBtn = $('#clearBtn');
+
+    function validateEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+
+    contactForm?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      formStatus.textContent = '';
+      const data = new FormData(contactForm);
+      const name = data.get('name')?.trim();
+      const email = data.get('email')?.trim();
+      const phone = data.get('phone')?.trim();
+      const message = data.get('message')?.trim();
+      const type = data.get('type');
+
+      if(!name || !email || !phone || !message){ formStatus.textContent = 'Please complete all required fields.'; return; }
+      if(!validateEmail(email)){ formStatus.textContent = 'Please enter a valid email address.'; return; }
+
+      // Simulate sending (prototype). In production you would POST to your server or 3rd-party.
+      formStatus.textContent = 'Sending...';
+      setTimeout(()=>{
+        formStatus.textContent = 'Thanks — your message was sent. We will reply within 1–3 business days.';
+        contactForm.reset();
+      }, 1200);
+    });
+
+    clearBtn?.addEventListener('click', ()=>{ contactForm.reset(); formStatus.textContent=''; });
+
+    // Small animation: pulse floating shapes slowly
+    const shapes = document.querySelectorAll('.floating-shape');
+    shapes.forEach((s,i)=> s.style.animation = `pulseSlow ${6 + i*2}s ease-in-out infinite`);
+
+    // Make sure images are lazy-loaded for performance
+    document.addEventListener('DOMContentLoaded', ()=>{ document.querySelectorAll('img').forEach(img=> img.loading = 'lazy'); });
+
+    // Keyboard accessibility: focus trap in modal if you add modal in future
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ $('#mobileMenu')?.classList.add('hidden'); } });
+
+    // Decorative parallax for header logo
+    const logo = document.querySelector('header svg');
+    if(logo){ document.addEventListener('mousemove', (ev)=>{ const rect = logo.getBoundingClientRect(); const dx = (ev.clientX - rect.left - rect.width/2)/60; const dy = (ev.clientY - rect.top - rect.height/2)/60; logo.style.transform = `translate(${dx}px, ${dy}px)`; }); }
+
+    // Expand FAQ details for keyboard users
+    $$('details').forEach(d=> d.addEventListener('toggle', ()=>{ if(d.open) d.scrollIntoView({ behavior:'smooth', block:'center' }); }));
+
+    // Tiny accessibility improvement: focus on first input when 'Request an Appointment' clicked
+    document.querySelectorAll('a[href="#contactForm"]').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); $('#name').focus({ preventScroll:false }); }));
+ 
+    // Map interactions: focus map on keyboard
+    const mapFrame = document.querySelector('.map-frame iframe');
+    if(mapFrame) mapFrame.setAttribute('tabindex', '0');
+
+    // Demo: animate contact cards into view with stagger
+    window.addEventListener('load', ()=>{
+      const cards = $$('.contact-card');
+      cards.forEach((c,i)=> setTimeout(()=> c.classList.add('slide-fade'), i*120));
+    });
+
+  </script>
+</body>
+</html>

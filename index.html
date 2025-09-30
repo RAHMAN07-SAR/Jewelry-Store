@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Redes Jewelry Store — Handcrafted luxury jewelry in Bengaluru. Explore collections, custom pieces, and more." />
+  <title>Redes Jewelry Store — Luxury Jewelry in Bengaluru</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Tailwind CDN (for prototype) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom width requested: max-w-6x1 */
+    .max-w-6x1{ max-width: 1200px; }
+    /* Small utilities */
+    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); }
+    .brand-color { color: #0f2b3d; } /* deep navy like reference */
+    .accent { background: #c88a43; } /* warm gold accent */
+    .accent-text { color: #c88a43; }
+    /* simple smooth animations */
+    .fade-in { animation: fadeIn .9s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity:1; transform:none }}
+    /* Product circle mask */
+    .circle-img { border-radius: 9999px; overflow: hidden; width:150px; height:150px; display:inline-block }
+    /* Lightbox overlay */
+    .lightbox { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.75); z-index:60 }
+  </style>
+</head>
+<body class="antialiased text-slate-700 bg-white">
+  <!-- HEADER / NAV -->
+  <header class="border-b sticky top-0 z-50 bg-white">
+    <div class="max-w-6x1 mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3" aria-label="Redes Jewelry Home">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2 L20 8 L12 22 L4 8 Z" fill="#0f2b3d"/></svg>
+          <span class="font-serif text-2xl brand-color">Redes</span>
+        </a>
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a class="hover:underline" href="index.html">Home</a>
+          <a class="hover:underline" href="collectionspage.html">Collections</a>
+          <a class="hover:underline" href="lookbook.html">Look Book</a>
+          <a class="hover:underline" href="about.html">About</a>
+          <a class="hover:underline" href="blog.html">Blog</a>
+          <a class="hover:underline" href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <button aria-label="Search" class="p-2 rounded-md hover:bg-gray-100" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a href="contact.html" class="hidden sm:inline-block text-sm px-4 py-2 border rounded-md">Book Appointment</a>
+        <button id="hamburger" class="md:hidden p-2" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile slideout -->
+    <div id="mobileMenu" class="fixed inset-y-0 left-0 w-72 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-40" aria-hidden="true">
+      <div class="p-6 border-b flex items-center justify-between">
+        <div class="flex items-center gap-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2 L20 8 L12 22 L4 8 Z" fill="#0f2b3d"/></svg><span class="font-serif text-xl">Redes</span></div>
+        <button id="closeMenu" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="p-6 space-y-4">
+        <a class="block" href="index.html">Home</a>
+        <a class="block" href="about.html">Aout</a>
+        <a class="block" href="collectionspage.html">Collections</a>
+        <a class="block" href="lookbook.html">Look Book</a>
+        <a class="block" href="blog.html">Blog</a>
+        <a class="block" href="contact.html">Contact</a>
+      </nav>
+      <div class="p-6 border-t">
+        <div class="flex items-center gap-3">
+          <a aria-label="facebook" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a aria-label="instagram" href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a aria-label="pinterest" href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="home">
+    <section class="w-full py-12">
+      <div class="max-w-6x1 mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="fade-in">
+          <p class="text-sm uppercase accent-text tracking-wider">Trading Design 2025</p>
+          <h1 class="font-serif text-5xl brand-color leading-tight mt-4">Jewelry That Tells<br/>Your Story</h1>
+          <p class="mt-4 text-slate-600">Handcrafted, ethically sourced jewelry curated for timeless moments. Explore our collections or book a private viewing in Bengaluru.</p>
+          <div class="mt-6 flex gap-4">
+            <a href="#shop" class="px-6 py-3 bg-[#0f2b3d] text-white rounded-md shadow">Explore Now</a>
+            <a href="#contact" class="px-6 py-3 border rounded-md">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute -right-10 -top-6 w-40 h-40 rounded-full overflow-hidden shadow-lg">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.7_KP5nJUBX_Yn_VBVKSPKAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="closeup earring" class="w-full h-full object-cover"/>
+          </div>
+          <div class="ml-auto w-full md:w-[420px] h-[420px] rounded-3xl overflow-hidden shadow-lg">
+            <img src="https://images.pexels.com/photos/1395306/pexels-photo-1395306.jpeg?cs=srgb&dl=accessories-black-background-bracelet-1395306.jpg&fm=jpg" alt="necklace hero" class="w-full h-full object-cover"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOP CATEGORIES / FEATURED PRODUCTS -->
+    <section id="collections" class="py-12 bg-white">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="text-3xl brand-color font-serif text-center">Top Categories</h2>
+        <p class="text-center text-slate-500 mt-2">Explore curated collections</p>
+        <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-start justify-items-center">
+          <!-- items follow reference circle style -->
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://th.bing.com/th/id/R.6d3eabe9676683a1c09d25ca3545df4d?rik=duc3PraGraakCg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fda%2fGold-jewellery-jewel-henry-designs-terabass.jpg&ehk=lFUDt9FtWJri%2fy2SbMyF%2f2DMRD2SKODFhazVYlUQTdY%3d&risl=1&pid=ImgRaw&r=0" alt="bracelets" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Bracelets</h3>
+            <p class="text-xs text-slate-400">4 Products</p>
+          </div>
+
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://th.bing.com/th/id/R.6d3eabe9676683a1c09d25ca3545df4d?rik=duc3PraGraakCg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fda%2fGold-jewellery-jewel-henry-designs-terabass.jpg&ehk=lFUDt9FtWJri%2fy2SbMyF%2f2DMRD2SKODFhazVYlUQTdY%3d&risl=1&pid=ImgRaw&r=0" alt="diamonds" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Diamonds</h3>
+            <p class="text-xs text-slate-400">3 Products</p>
+          </div>
+
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://th.bing.com/th/id/R.6d3eabe9676683a1c09d25ca3545df4d?rik=duc3PraGraakCg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fda%2fGold-jewellery-jewel-henry-designs-terabass.jpg&ehk=lFUDt9FtWJri%2fy2SbMyF%2f2DMRD2SKODFhazVYlUQTdY%3d&risl=1&pid=ImgRaw&r=0" alt="earrings" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Earrings</h3>
+            <p class="text-xs text-slate-400">3 Products</p>
+          </div>
+
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://images.naptol.com/usr/local/csp/staticContent/product_images/horizontal/750x750/Sumangali-Jewellery-Collection-o1.jpg" alt="instagram" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Instagram</h3>
+            <p class="text-xs text-slate-400">5 Products</p>
+          </div>
+
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://images.naptol.com/usr/local/csp/staticContent/product_images/horizontal/750x750/Sumangali-Jewellery-Collection-o1.jpg" alt="necklaces" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Necklaces</h3>
+            <p class="text-xs text-slate-400">4 Products</p>
+          </div>
+
+          <div class="text-center">
+            <div class="circle-img border p-4 flex items-center justify-center"><img src="https://images.naptol.com/usr/local/csp/staticContent/product_images/horizontal/750x750/Sumangali-Jewellery-Collection-o1.jpg" alt="pearls" class="object-cover w-full h-full"/></div>
+            <h3 class="mt-4">Pearls</h3>
+            <p class="text-xs text-slate-400">1 Product</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-12">
+      <div class="max-w-6x1 mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl brand-color font-serif">About Redes</h2>
+          <p class="mt-4 text-slate-600">Redes Jewelry is a Bengaluru-based atelier crafting heirloom-quality pieces with a modern aesthetic. We believe in ethical sourcing, artisanal techniques and personalized service.</p>
+          <ul class="mt-4 space-y-2">
+            <li>• Ethically sourced gemstones</li>
+            <li>• Bespoke design & private appointments</li>
+            <li>• Lifetime servicing</li>
+          </ul>
+        </div>
+        <div>
+          <div class="p-6 border rounded-lg">
+            <h3 class="font-semibold">Founder's Note</h3>
+            <p class="mt-2 text-sm text-slate-600">"We design with memory in mind — every piece has a story. Welcome to Redes." — <strong>Founder, Redes</strong></p>
+            <div class="mt-4 flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="founder" class="w-16 h-16 rounded-full object-cover"/>
+              <div>
+                <div class="text-sm font-medium">Sneha R.</div>
+                <div class="text-xs text-slate-400">Founder & Designer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO / GALLERY -->
+    <section id="portfolio" class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-3xl brand-color font-serif">Portfolio</h2>
+          <div class="space-x-2">
+            <button class="px-3 py-1 rounded-md border" data-filter="all">All</button>
+            <button class="px-3 py-1 rounded-md border" data-filter="rings">Rings</button>
+            <button class="px-3 py-1 rounded-md border" data-filter="neck">Necklaces</button>
+            <button class="px-3 py-1 rounded-md border" data-filter="ear">Earrings</button>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4" id="portfolioGrid">
+          <!-- thumbnails with data-category for filter -->
+          <figure class="relative group" data-category="rings">
+            <img src="https://blog.southindiajewels.com/wp-content/uploads/2019/11/imitation-antique-jewellery-designs-9.jpg" alt="gold ring" class="w-full h-48 object-cover rounded-lg" />
+            <figcaption class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition flex items-end p-4 rounded-lg text-white">Gold ring — View</figcaption>
+          </figure>
+
+          <figure class="relative group" data-category="neck">
+            <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="delicate necklace" class="w-full h-48 object-cover rounded-lg" />
+            <figcaption class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition flex items-end p-4 rounded-lg text-white">Delicate necklace — View</figcaption>
+          </figure>
+
+          <figure class="relative group" data-category="ear">
+            <img src="https://blog.southindiajewels.com/wp-content/uploads/2019/11/imitation-antique-jewellery-designs-9.jpg" alt="pearl earring" class="w-full h-48 object-cover rounded-lg" />
+            <figcaption class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition flex items-end p-4 rounded-lg text-white">Pearl earring — View</figcaption>
+          </figure>
+
+          <figure class="relative group" data-category="rings">
+            <img src="https://blog.southindiajewels.com/wp-content/uploads/2019/11/imitation-antique-jewellery-designs-9.jpg" alt="gem ring" class="w-full h-48 object-cover rounded-lg" />
+            <figcaption class="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition flex items-end p-4 rounded-lg text-white">Gem ring — View</figcaption>
+          </figure> 
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="py-12">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="text-3xl brand-color font-serif text-center">What Our Clients Say</h2>
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <blockquote class="p-6 border rounded-lg">
+            <p class="text-slate-600">"The bespoke ring Sneha designed for my anniversary was perfect. Exceptional craftsmanship."</p>
+            <footer class="mt-4 text-sm text-slate-500">— R. Kumar</footer>
+          </blockquote>
+
+          <blockquote class="p-6 border rounded-lg">
+            <p class="text-slate-600">"Beautiful, timeless pieces and very professional service. Highly recommended."</p>
+            <footer class="mt-4 text-sm text-slate-500">— Ananya S.</footer>
+          </blockquote>
+
+          <blockquote class="p-6 border rounded-lg">
+            <p class="text-slate-600">"Loved the private viewing experience. The team was so helpful."</p>
+            <footer class="mt-4 text-sm text-slate-500">— Michael</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING / PACKAGES -->
+    <section id="pricing" class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="text-3xl brand-color font-serif text-center">Packages</h2>
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <div class="p-6 border rounded-lg text-center">
+            <h3 class="text-xl font-semibold">Starter</h3>
+            <p class="text-3xl mt-4">₹5,000</p>
+            <ul class="mt-4 text-sm text-slate-600 space-y-2">
+              <li>Design consultation</li>
+              <li>Basic polishing</li>
+            </ul>
+            <a class="mt-6 inline-block px-4 py-2 border rounded-md" href="#contact">Purchase</a>
+          </div>
+
+          <div class="p-6 border-2 border-[#0f2b3d] rounded-lg text-center transform scale-105 bg-white">
+            <div class="badge absolute -mt-12 ml-6 bg-accent text-white px-3 py-1 rounded">Most Popular</div>
+            <h3 class="text-xl font-semibold">Bespoke</h3>
+            <p class="text-3xl mt-4">₹25,000</p>
+            <ul class="mt-4 text-sm text-slate-600 space-y-2">
+              <li>Full bespoke design</li>
+              <li>Private atelier appointment</li>
+              <li>Lifetime servicing</li>
+            </ul>
+            <a class="mt-6 inline-block px-4 py-2 bg-[#0f2b3d] text-white rounded-md" href="#contact">Purchase</a>
+          </div>
+
+          <div class="p-6 border rounded-lg text-center">
+            <h3 class="text-xl font-semibold">Premium</h3>
+            <p class="text-3xl mt-4">₹50,000</p>
+            <ul class="mt-4 text-sm text-slate-600 space-y-2">
+              <li>All Bespoke benefits</li>
+              <li>Priority crafting</li>
+            </ul>
+            <a class="mt-6 inline-block px-4 py-2 border rounded-md" href="#contact">Purchase</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG LISTING -->
+    <section id="blog" class="py-12">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="text-3xl brand-color font-serif">From the Journal</h2>
+        <div class="mt-6 grid md:grid-cols-3 gap-6">
+          <article class="border rounded-lg overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="blog 1" class="w-full h-40 object-cover"/>
+            <div class="p-4">
+              <h3 class="font-semibold">How We Source Gemstones</h3>
+              <p class="text-sm text-slate-600 mt-2">A peek behind the scenes of ethical sourcing and partnerships.</p>
+            </div>
+          </article>
+
+          <article class="border rounded-lg overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="blog 2" class="w-full h-40 object-cover"/>
+            <div class="p-4">
+              <h3 class="font-semibold">Caring for Your Jewelry</h3>
+              <p class="text-sm text-slate-600 mt-2">Practical tips to keep pieces looking new for generations.</p>
+            </div>
+          </article>
+
+          <article class="border rounded-lg overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="blog 3" class="w-full h-40 object-cover"/>
+            <div class="p-4">
+              <h3 class="font-semibold">Designing for Moments</h3>
+              <p class="text-sm text-slate-600 mt-2">How we translate memory into form and metal.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-12 bg-gray-50">
+      <div class="max-w-6x1 mx-auto px-6">
+        <h2 class="text-3xl brand-color font-serif">FAQ</h2>
+        <div class="mt-6 space-y-4" id="faqAccord">
+          <div class="border rounded">
+            <button class="w-full text-left p-4" data-acc="q1">What is your turnaround time?</button>
+            <div class="p-4 hidden" id="q1">Typical bespoke work takes 4-8 weeks depending on complexity.</div>
+          </div>
+
+          <div class="border rounded">
+            <button class="w-full text-left p-4" data-acc="q2">Do you do repairs?</button>
+            <div class="p-4 hidden" id="q2">Yes — lifetime servicing and cleaning are available for pieces made by Redes.</div>
+          </div>
+
+          <div class="border rounded">
+            <button class="w-full text-left p-4" data-acc="q3">Can I book a private viewing?</button>
+            <div class="p-4 hidden" id="q3">Yes — book via the contact form or call our studio in Bengaluru.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-12">
+      <div class="max-w-6x1 mx-auto px-6 grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-3xl brand-color font-serif">Get in Touch</h2>
+          <p class="mt-2 text-slate-600">Visit our studio in Bengaluru or send a message — we usually reply within 1 business day.</p>
+          <div class="mt-6 space-y-3 text-sm">
+            <div><strong>Address:</strong> Banguluru</div>
+            <div><strong>Phone:</strong> <a href="tel:+919676659153">+91 96766 59153</a></div>
+            <div><strong>Email:</strong> <a href="mailto:info@redescreation.in">info@redescreation.in</a></div>
+            <div><strong>Website:</strong> www.redescreation.in</div>
+          </div>
+
+          <div class="mt-6">
+            <iframe title="Redes Studio Map" src="https://www.google.com/maps?q=Bengaluru&output=embed" class="w-full h-56 border-0 rounded" aria-hidden="false"></iframe>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactForm" class="space-y-4 bg-white p-6 border rounded" aria-label="Contact form">
+            <div>
+              <label class="text-sm">Name</label>
+              <input required name="name" class="w-full border p-2 rounded mt-1" />
+            </div>
+            <div>
+              <label class="text-sm">Email</label>
+              <input required type="email" name="email" class="w-full border p-2 rounded mt-1" />
+            </div>
+            <div>
+              <label class="text-sm">Phone</label>
+              <input name="phone" class="w-full border p-2 rounded mt-1" />
+            </div>
+            <div>
+              <label class="text-sm">Message</label>
+              <textarea name="message" rows="4" class="w-full border p-2 rounded mt-1"></textarea>
+            </div>
+            <button type="submit" class="px-4 py-2 bg-[#0f2b3d] text-white rounded">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t mt-12">
+    <div class="max-w-6x1 mx-auto px-6 py-10 grid md:grid-cols-4 gap-6">
+      <div>
+        <h4 class="font-semibold">Redes</h4>
+        <p class="text-sm text-slate-500 mt-2">Bengaluru atelier crafting heirloom jewelry.</p>
+      </div>
+      <div>
+        <h5 class="font-medium">Explore</h5>
+        <ul class="mt-2 text-sm text-slate-600 space-y-2">
+          <li><a href="collectionspage.html">Collections</a></li>
+          <li><a href="lookbook.html">Look Book</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium">Resources</h5>
+        <ul class="mt-2 text-sm text-slate-600 space-y-2">
+          <li><a href="#">Care Guides</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-medium">Connect</h5>
+        <div class="flex gap-3 mt-2">
+          <a href="#" aria-label="instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="linkedin"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center py-6 text-sm text-slate-500">© 2025 Redes Jewelry. All rights reserved.</div>
+  </footer>
+  <!-- LIGHTBOX (hidden) -->
+  <div id="lightbox" class="hidden" role="dialog" aria-modal="true"></div>
+
+  <script>
+    // Mobile menu toggles
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    hamburger.addEventListener('click', ()=>{ mobileMenu.style.transform='translateX(0)'; mobileMenu.setAttribute('aria-hidden','false') });
+    closeMenu.addEventListener('click', ()=>{ mobileMenu.style.transform='translateX(-100%)'; mobileMenu.setAttribute('aria-hidden','true') });
+
+    // portfolio filters
+    document.querySelectorAll('[data-filter]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const f = btn.getAttribute('data-filter');
+        document.querySelectorAll('#portfolioGrid > figure').forEach(fig=>{
+          if(f==='all' || fig.dataset.category===f) fig.style.display='block'; else fig.style.display='none';
+        })
+      })
+    });
+
+    // basic lightbox on portfolio images
+    document.querySelectorAll('#portfolioGrid img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        const lb = document.getElementById('lightbox');
+        lb.innerHTML = `<div class=\"lightbox\"><img src=\"${img.src}\" class=\"max-w-[90%] max-h-[90%] rounded\" alt=\"enlarged\"><button style=\"position:absolute;top:20px;right:20px;padding:8px;background:white;border-radius:8px\">Close</button></div>`;
+        lb.classList.remove('hidden');
+        lb.querySelector('button').addEventListener('click', ()=>{ lb.classList.add('hidden'); lb.innerHTML=''; })
+      })
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('#faqAccord button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-acc');
+        const el = document.getElementById(id);
+        if(el.classList.contains('hidden')) el.classList.remove('hidden'); else el.classList.add('hidden');
+      })
+    })
+ 
+    // simple contact form handler
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      alert('Thanks — your message was sent (prototype).');
+      e.target.reset();
+    })
+
+    // simple accessibility: focus trap for mobile menu
+    mobileMenu.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { mobileMenu.style.transform='translateX(-100%)'; } });
+  </script>
+</body>
+</html>
